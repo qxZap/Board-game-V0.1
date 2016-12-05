@@ -1,0 +1,82 @@
+from random import randint
+ 
+board = []
+player_1_name=""
+player_2_name=""
+for x in range(4):
+    board.append(["O"] * 4)
+ 
+def print_board(board):
+    for row in board:
+        print " ".join(row)
+ 
+print "Let's play Battleship!"
+print_board(board)
+ 
+def random_row(board):
+    return randint(0, len(board) - 1)
+ 
+def random_col(board):
+    return randint(0, len(board[0]) - 1)
+ 
+ship_row_1= random_row(board)
+ship_col_1 = random_col(board)
+#randomize the position of the first player
+player_1_name=raw_input("First player`s nickname:")
+ship_row_2= random_row(board)
+ship_col_2 = random_col(board)
+player_2_name=raw_input("Second player`s nickname:")
+#randomize the position of the first player
+print player_1_name , " VS " , player_2_name
+
+for turn in range(4):
+    print "Turn ", turn+1
+    print player_1_name,"`s turn"
+    guess_row_1 = int(raw_input("Guess Row:"))
+    guess_col_1 = int(raw_input("Guess Col:"))
+ 
+    if guess_row_1 == ship_row_2 and guess_col_1 == ship_col_2:
+        print "Congratulations! You sunk his battleship!"
+        break
+    else:
+            if guess_row_1 not in range(4) or guess_col_1 not in range(4):
+                print "Oops, that's not even in the ocean."
+                if guess_row_1 == ship_row_1 and guess_col_1 == ship_col_1:
+                    print "You killed yourself"
+                    break
+            elif(board[guess_row_1][guess_col_1] == "X"):
+                print "You guessed that one already."
+            else:
+                print "You missed!"
+                board[guess_row_1][guess_col_1] = "X"  
+                if turn == 3 :
+                     print "Game Over"
+                     break
+                 
+    print player_2_name,"`s turn"
+    guess_row_2 = int(raw_input("Guess Row:"))
+    guess_col_2 = int(raw_input("Guess Col:"))
+ 
+    if guess_row_2 == ship_row_1 and guess_col_2 == ship_col_1:
+        print "Congratulations! You sunk his battleship!"
+        break
+    else:
+            if guess_row_1 not in range(4) or guess_col_1 not in range(4):
+                print "Oops, that's not even in the ocean."
+                if guess_row_2 == ship_row_2 and guess_col_2 == ship_col_2:
+                    print "You killed yourself"
+                    break
+            elif(board[guess_row_2][guess_col_2] == "X"):
+                print "You guessed that one already."
+            else:
+                print "You missed!"
+                board[guess_row_2][guess_col_2] = "X"  
+                if turn == 3 :
+                     print "Game Over"
+                     break
+   
+   
+   
+    print_board(board)
+
+hold_for_end=raw_input("")
